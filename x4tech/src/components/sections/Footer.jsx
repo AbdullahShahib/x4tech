@@ -1,5 +1,6 @@
 import React from 'react';
-import { Twitter, Instagram, Linkedin, Github, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { SocialConnect } from '../ui/connect-with-us';
 
 export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,20 +17,9 @@ export default function Footer() {
             <p style={{ color: 'var(--x4-muted)', fontSize: '0.88rem', lineHeight: 1.7, maxWidth: '300px', marginBottom: '1.5rem' }}>
               A freelance tech agency building apps, websites, and brand identities that grow businesses.
             </p>
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
-              {[
-                { Icon: Twitter, href: '#' },
-                { Icon: Instagram, href: '#' },
-                { Icon: Linkedin, href: '#' },
-                { Icon: Github, href: '#' },
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href} style={{ width: '36px', height: '36px', border: '1px solid var(--x4-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--x4-muted)', transition: 'all 0.3s ease' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--x4-cyan)'; e.currentTarget.style.color = 'var(--x4-cyan)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--x4-border)'; e.currentTarget.style.color = 'var(--x4-muted)'; }}>
-                  <Icon size={14} />
-                </a>
-              ))}
-            </div>
+            <p style={{ color: 'var(--x4-cyan)', fontFamily: 'Space Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              Contact Us
+            </p>
           </div>
 
           {/* Links */}
@@ -53,6 +43,10 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        <div style={{ marginTop: '2.5rem', border: '1px solid var(--x4-border)', background: 'var(--x4-dark)' }}>
+          <SocialConnect compact />
         </div>
 
         <div style={{ paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
