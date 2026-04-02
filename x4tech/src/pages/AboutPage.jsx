@@ -3,6 +3,7 @@ import { ArrowLeft, Github, Instagram, Linkedin, Mail, Twitter } from 'lucide-re
 import Cursor from '../components/ui/Cursor';
 import Footer from '../components/sections/Footer';
 import { getAll, COLS } from '../lib/firestore';
+import { GlassmorphismProfileCard } from '../components/ui/profile-card-1';
 
 const FALLBACK_MEMBERS = [
   {
@@ -75,53 +76,17 @@ export default function AboutPage() {
 
         <section style={{ padding: '4rem 3rem 8rem' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1px', background: 'var(--x4-border)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', justifyItems: 'center' }}>
               {team.map((member) => (
-                <article key={member.id} style={{ background: 'var(--x4-card)', padding: '1.2rem' }}>
-                  <div style={{ aspectRatio: '4/5', marginBottom: '1rem', overflow: 'hidden', border: '1px solid var(--x4-border)', background: 'var(--x4-dark)' }}>
-                    <img
-                      src={member.headshotUrl || FALLBACK_MEMBERS[0].headshotUrl}
-                      alt={member.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                  <p style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.8rem', letterSpacing: '0.04em', color: '#fff', marginBottom: '0.2rem' }}>
-                    {member.name}
-                  </p>
-                  <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', letterSpacing: '0.2em', color: 'var(--x4-cyan)', textTransform: 'uppercase', marginBottom: '0.8rem' }}>
-                    {member.role || 'Team Member'}
-                  </p>
-                  <p style={{ color: 'var(--x4-muted)', fontSize: '0.86rem', lineHeight: 1.7, minHeight: '72px' }}>
-                    {member.bio || 'Creative and technical professional at X4Tech.'}
-                  </p>
-                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-                    {member.linkedin && (
-                      <a href={normalizeExternalUrl(member.linkedin)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
-                        <Linkedin size={14} />
-                      </a>
-                    )}
-                    {member.twitter && (
-                      <a href={normalizeExternalUrl(member.twitter)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
-                        <Twitter size={14} />
-                      </a>
-                    )}
-                    {member.instagram && (
-                      <a href={normalizeExternalUrl(member.instagram)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
-                        <Instagram size={14} />
-                      </a>
-                    )}
-                    {member.github && (
-                      <a href={normalizeExternalUrl(member.github)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
-                        <Github size={14} />
-                      </a>
-                    )}
-                    {member.gmail && (
-                      <a href={toMailto(member.gmail)} style={socialLinkStyle}>
-                        <Mail size={14} />
-                      </a>
-                    )}
-                  </div>
-                </article>
+                <GlassmorphismProfileCard
+                  key={member.id}
+                  avatarUrl={member.headshotUrl || FALLBACK_MEMBERS[0].headshotUrl}
+                  name={member.name}
+                  title={member.role || 'Team Member'}
+                  bio={member.bio || 'Creative and technical professional at X4Tech.'}
+                  socialLinks={buildSocialLinks(member)}
+                  actionButton={buildActionButton(member)}
+                />
               ))}
             </div>
           </div>
@@ -133,17 +98,6 @@ export default function AboutPage() {
   );
 }
 
-const socialLinkStyle = {
-  width: '34px',
-  height: '34px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  border: '1px solid var(--x4-border)',
-  color: 'var(--x4-muted)',
-  textDecoration: 'none',
-};
-
 function normalizeExternalUrl(value) {
   if (!value) return '#';
   if (value.startsWith('http://') || value.startsWith('https://')) return value;
@@ -154,4 +108,49 @@ function toMailto(value) {
   if (!value) return '#';
   if (value.startsWith('mailto:')) return value;
   return `mailto:${value}`;
+}
+
+function buildSocialLinks(member) {
+  return [
+    member.github && {
+      id: 'github',
+      icon: Github,
+      label: 'GitHub',
+      href: normalizeExternalUrl(member.github),
+    },
+    member.linkedin && {
+      id: 'linkedin',
+      icon: Linkedin,
+      label: 'LinkedIn',
+      href: normalizeExternalUrl(member.linkedin),
+    },
+    member.twitter && {
+      id: 'twitter',
+      icon: Twitter,
+      label: 'Twitter',
+      href: normalizeExternalUrl(member.twitter),
+    },
+    member.instagram && {
+      id: 'instagram',
+      icon: Instagram,
+      label: 'Instagram',
+      href: normalizeExternalUrl(member.instagram),
+    },
+    member.gmail && {
+      id: 'gmail',
+      icon: Mail,
+      label: 'Gmail',
+      href: toMailto(member.gmail),
+    },
+  ].filter(Boolean);
+}
+
+function buildActionButton(member) {
+  if (member.gmail) {
+    return { text: 'Contact Me', href: toMailto(member.gmail) };
+  }
+  if (member.github) {
+    return { text: 'View GitHub', href: normalizeExternalUrl(member.github) };
+  }
+  return { text: 'Contact Us', href: '/#contact' };
 }
