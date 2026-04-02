@@ -6,7 +6,20 @@ import {
   ImageUpload, FileUpload, Modal, Confirm, DataTable, useToast
 } from '../../components/admin/AdminUI';
 
-const EMPTY_MEMBER = { name: '', role: '', bio: '', linkedin: '', twitter: '', headshot: null, headshotUrl: '', visible: true, order: 0 };
+const EMPTY_MEMBER = {
+  name: '',
+  role: '',
+  bio: '',
+  linkedin: '',
+  twitter: '',
+  instagram: '',
+  github: '',
+  gmail: '',
+  headshot: null,
+  headshotUrl: '',
+  visible: true,
+  order: 0,
+};
 const EMPTY_JOB    = { title: '', department: '', type: 'Full-time', location: 'Remote', description: '', applyUrl: '', open: true };
 
 export default function AdminTeam({ defaultTab = 'team' }) {
@@ -116,6 +129,11 @@ export default function AdminTeam({ defaultTab = 'team' }) {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <Field label="LinkedIn URL"><Input value={form.linkedin} onChange={f('linkedin')} placeholder="https://linkedin.com/in/…" /></Field>
                 <Field label="Twitter URL"><Input value={form.twitter} onChange={f('twitter')} placeholder="https://twitter.com/…" /></Field>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                <Field label="Instagram URL"><Input value={form.instagram} onChange={f('instagram')} placeholder="https://instagram.com/…" /></Field>
+                <Field label="GitHub URL"><Input value={form.github} onChange={f('github')} placeholder="https://github.com/…" /></Field>
+                <Field label="Gmail"><Input value={form.gmail} onChange={f('gmail')} placeholder="name@gmail.com" /></Field>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <Field label="Headshot Photo">

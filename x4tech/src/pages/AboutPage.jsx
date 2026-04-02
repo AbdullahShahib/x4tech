@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Linkedin, Twitter } from 'lucide-react';
+import { ArrowLeft, Github, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
 import Cursor from '../components/ui/Cursor';
 import Footer from '../components/sections/Footer';
 import { getAll, COLS } from '../lib/firestore';
@@ -96,13 +96,28 @@ export default function AboutPage() {
                   </p>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
                     {member.linkedin && (
-                      <a href={member.linkedin} target="_blank" rel="noreferrer" style={socialLinkStyle}>
+                      <a href={normalizeExternalUrl(member.linkedin)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
                         <Linkedin size={14} />
                       </a>
                     )}
                     {member.twitter && (
-                      <a href={member.twitter} target="_blank" rel="noreferrer" style={socialLinkStyle}>
+                      <a href={normalizeExternalUrl(member.twitter)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
                         <Twitter size={14} />
+                      </a>
+                    )}
+                    {member.instagram && (
+                      <a href={normalizeExternalUrl(member.instagram)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
+                        <Instagram size={14} />
+                      </a>
+                    )}
+                    {member.github && (
+                      <a href={normalizeExternalUrl(member.github)} target="_blank" rel="noreferrer" style={socialLinkStyle}>
+                        <Github size={14} />
+                      </a>
+                    )}
+                    {member.gmail && (
+                      <a href={toMailto(member.gmail)} style={socialLinkStyle}>
+                        <Mail size={14} />
                       </a>
                     )}
                   </div>
@@ -128,3 +143,15 @@ const socialLinkStyle = {
   color: 'var(--x4-muted)',
   textDecoration: 'none',
 };
+
+function normalizeExternalUrl(value) {
+  if (!value) return '#';
+  if (value.startsWith('http://') || value.startsWith('https://')) return value;
+  return `https://${value}`;
+}
+
+function toMailto(value) {
+  if (!value) return '#';
+  if (value.startsWith('mailto:')) return value;
+  return `mailto:${value}`;
+}
