@@ -52,7 +52,7 @@ function PublicSite() {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_relativeSplatPath: true }}>
         <Routes>
           {/* ── Public website ── */}
           <Route path="/" element={<PublicSite />} />
