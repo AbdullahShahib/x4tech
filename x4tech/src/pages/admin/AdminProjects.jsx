@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, ExternalLink, Image } from 'lucide-react';
 import { getAll, create, update, remove, uploadFile, COLS } from '../../lib/firestore';
+import { formatFirebaseError } from '../../lib/firebaseError';
 import {
   PageHeader, Btn, Field, Input, Select, Toggle, TagInput,
   ImageUpload, Modal, Confirm, DataTable, useToast
@@ -61,13 +62,13 @@ export default function AdminProjects() {
       if (editing) { await update(COLS.PROJECTS, editing, data); toast('Project updated!'); }
       else          { await create(COLS.PROJECTS, data);          toast('Project created!'); }
       setModal(false); load();
-    } catch (err) { toast('Error saving project', 'error'); }
+    } catch (err) { toast(formatFirebaseError(err, 'Error saving project'), 'error'); }
     setSaving(false); setUploadProgress(0);
   };
 
   const handleDelete = async () => {
     try { await remove(COLS.PROJECTS, delTarget.id); toast('Project deleted'); load(); }
-    catch (_) { toast('Error deleting', 'error'); }
+    catch (err) { toast(formatFirebaseError(err, 'Error deleting project'), 'error'); }
   };
 
   const f = (key) => (val) => setForm(p => ({ ...p, [key]: typeof val === 'object' && val?.target ? val.target.value : val }));

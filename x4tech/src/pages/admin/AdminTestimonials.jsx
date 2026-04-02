@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Star } from 'lucide-react';
 import { getAll, create, update, remove, uploadFile, COLS } from '../../lib/firestore';
+import { formatFirebaseError } from '../../lib/firebaseError';
 import {
   PageHeader, Btn, Field, Input, Select, Toggle,
   ImageUpload, Modal, Confirm, DataTable, useToast
@@ -37,13 +38,13 @@ export default function AdminTestimonials() {
       if (editing) { await update(COLS.TESTIMONIALS, editing, data); toast('Testimonial updated!'); }
       else          { await create(COLS.TESTIMONIALS, data);          toast('Testimonial added!'); }
       setModal(false); load();
-    } catch (_) { toast('Error saving', 'error'); }
+    } catch (err) { toast(formatFirebaseError(err, 'Error saving testimonial'), 'error'); }
     setSaving(false);
   };
 
   const handleDelete = async () => {
     try { await remove(COLS.TESTIMONIALS, delTarget.id); toast('Deleted'); load(); }
-    catch (_) { toast('Error', 'error'); }
+    catch (err) { toast(formatFirebaseError(err, 'Error deleting testimonial'), 'error'); }
   };
 
   const f = (key) => (val) => setForm(p => ({ ...p, [key]: typeof val === 'object' && val?.target ? val.target.value : val }));

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { getAll, create, update, remove, COLS } from '../../lib/firestore';
+import { formatFirebaseError } from '../../lib/firebaseError';
 import {
   PageHeader, Btn, Field, Input, Select, Toggle, TagInput,
   Modal, Confirm, DataTable, useToast
@@ -41,13 +42,13 @@ export default function AdminServices() {
       if (editing) { await update(COLS.SERVICES, editing, form); toast('Service updated!'); }
       else          { await create(COLS.SERVICES, form);          toast('Service created!'); }
       setModal(false); load();
-    } catch (_) { toast('Error saving', 'error'); }
+    } catch (err) { toast(formatFirebaseError(err, 'Error saving service'), 'error'); }
     setSaving(false);
   };
 
   const handleDelete = async () => {
     try { await remove(COLS.SERVICES, delTarget.id); toast('Service deleted'); load(); }
-    catch (_) { toast('Error deleting', 'error'); }
+    catch (err) { toast(formatFirebaseError(err, 'Error deleting service'), 'error'); }
   };
 
   const f = (key) => (val) => setForm(p => ({ ...p, [key]: typeof val === 'object' && val?.target ? val.target.value : val }));

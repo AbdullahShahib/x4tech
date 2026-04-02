@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Lock, Mail, Eye, EyeOff, Zap } from 'lucide-react';
+import { formatFirebaseError } from '../../lib/firebaseError';
 
 export default function AdminLogin() {
   const { login } = useAuth();
@@ -19,7 +20,7 @@ export default function AdminLogin() {
       await login(form.email, form.password);
       navigate('/admin/dashboard');
     } catch (err) {
-      setError('Invalid credentials. Check your email and password.');
+      setError(formatFirebaseError(err, 'Login failed'));
     } finally {
       setLoading(false);
     }
