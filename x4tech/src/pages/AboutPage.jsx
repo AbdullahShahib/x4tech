@@ -31,19 +31,24 @@ const FALLBACK_MEMBERS = [
 
 export default function AboutPage() {
   const [members, setMembers] = useState([]);
+  const [teamLoaded, setTeamLoaded] = useState(false);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       try {
         const data = await getAll(COLS.TEAM);
-        if (!alive || !Array.isArray(data) || !data.length) return;
-        const mapped = data
-          .filter((m) => m.visible !== false)
-          .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
-        setMembers(mapped);
+        if (!alive) return;
+        if (Array.isArray(data) && data.length) {
+          const mapped = data
+            .filter((m) => m.visible !== false)
+            .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+          setMembers(mapped);
+        }
       } catch (_) {
         // Keep fallback members when Firestore is unavailable.
+      } finally {
+        if (alive) setTeamLoaded(true);
       }
     })();
     return () => { alive = false; };
@@ -76,7 +81,11 @@ export default function AboutPage() {
 
         <section style={{ padding: '4rem 3rem 8rem' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <TestimonialCarousel testimonials={team.map(mapMemberToTestimonial)} />
+            {teamLoaded ? (
+              <TestimonialCarousel testimonials={team.map(mapMemberToTestimonial)} />
+            ) : (
+              <div style={{ height: '520px', borderRadius: '24px', border: '1px solid var(--x4-border)', background: 'rgba(255,255,255,0.02)' }} />
+            )}
           </div>
         </section>
 

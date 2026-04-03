@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Github,
@@ -13,7 +13,6 @@ import {
   Mail,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
 import { AnimatedText } from '@/components/ui/animated-shiny-text';
 import { BubbleText } from '@/components/ui/bubble-text';
 
@@ -76,6 +75,7 @@ export interface TestimonialCarouselProps {
 
 export function TestimonialCarousel({ className, testimonials }: TestimonialCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [typedBio, setTypedBio] = useState('');
 
   const items = useMemo(() => (testimonials && testimonials.length ? testimonials : defaultTestimonials), [testimonials]);
   const currentTestimonial = items[currentIndex] ?? items[0];
@@ -92,10 +92,23 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
     { icon: Mail, url: currentTestimonial.gmailUrl, label: 'Email' },
   ].filter(({ url }) => Boolean(url));
 
-  const bioWords = currentTestimonial.description
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((text) => ({ text }));
+  useEffect(() => {
+    const fullText = currentTestimonial.description || '';
+    setTypedBio('');
+
+    if (!fullText) return;
+
+    let pointer = 0;
+    const interval = window.setInterval(() => {
+      pointer += 1;
+      setTypedBio(fullText.slice(0, pointer));
+      if (pointer >= fullText.length) {
+        window.clearInterval(interval);
+      }
+    }, 32);
+
+    return () => window.clearInterval(interval);
+  }, [currentTestimonial.description, currentTestimonial.name]);
 
   return (
     <div className={cn('w-full max-w-5xl mx-auto px-4', className)}>
@@ -139,11 +152,10 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
                 <BubbleText text={currentTestimonial.title} className="mt-1" />
               </div>
 
-              <TypewriterEffectSmooth
-                words={bioWords}
-                className="mb-8 text-base leading-relaxed text-black"
-                cursorClassName="bg-black"
-              />
+              <p className="mb-8 text-base leading-relaxed text-black whitespace-pre-wrap min-h-[120px]">
+                {typedBio}
+                <span className="animate-pulse ml-0.5">|</span>
+              </p>
 
               <div className="flex space-x-4 flex-wrap gap-y-3">
                 {socialIcons.map(({ icon: IconComponent, url, label }) => (
@@ -201,11 +213,10 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
                 hoverEffect
               />
               <BubbleText text={currentTestimonial.title} className="text-center mt-1 mb-4" />
-              <TypewriterEffectSmooth
-                words={bioWords}
-                className="justify-center mb-6 text-black"
-                cursorClassName="bg-black"
-              />
+              <p className="text-black text-sm leading-relaxed mb-6 whitespace-pre-wrap min-h-[96px] text-left">
+                {typedBio}
+                <span className="animate-pulse ml-0.5">|</span>
+              </p>
 
               <div className="flex justify-center space-x-4 flex-wrap gap-y-3">
                 {socialIcons.map(({ icon: IconComponent, url, label }) => (
