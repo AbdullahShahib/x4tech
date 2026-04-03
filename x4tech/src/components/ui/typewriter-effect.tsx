@@ -76,12 +76,7 @@ export const TypewriterEffectSmooth = ({ words, className, cursorClassName }: Ty
 
   return (
     <div className={cn('flex items-start space-x-1 my-2', className)}>
-      <motion.div
-        className="overflow-hidden pb-1"
-        initial={{ width: '0%' }}
-        whileInView={{ width: 'fit-content' }}
-        transition={{ duration: 1.2, ease: 'linear', delay: 0.1 }}
-      >
+      <div className="pb-1">
         <div className="text-sm sm:text-base md:text-lg leading-relaxed">
           {wordsArray.map((word, idx) => (
             <div key={`word-${idx}`} className="inline-block">
@@ -94,7 +89,7 @@ export const TypewriterEffectSmooth = ({ words, className, cursorClassName }: Ty
             </div>
           ))}
         </div>
-      </motion.div>
+      </div>
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

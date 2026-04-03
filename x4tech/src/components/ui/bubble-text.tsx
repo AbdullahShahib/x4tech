@@ -12,7 +12,7 @@ export function BubbleText({ text, className }: BubbleTextProps) {
   return (
     <h3
       onMouseLeave={() => setHoveredIndex(null)}
-      className={cn('text-left text-lg md:text-xl font-light text-slate-500 dark:text-slate-300', className)}
+      className={cn('text-left text-lg md:text-xl font-light !text-black', className)}
     >
       {text.split('').map((char, idx) => {
         const distance = hoveredIndex !== null ? Math.abs(hoveredIndex - idx) : null;
@@ -20,10 +20,10 @@ export function BubbleText({ text, className }: BubbleTextProps) {
         let classes = 'transition-all duration-300 ease-in-out cursor-default';
         switch (distance) {
           case 0:
-            classes += ' font-black text-slate-900 dark:text-white';
+            classes += ' font-black !text-black';
             break;
           case 1:
-            classes += ' font-medium text-slate-700 dark:text-slate-100';
+            classes += ' font-medium !text-black';
             break;
           case 2:
             classes += ' font-normal';
