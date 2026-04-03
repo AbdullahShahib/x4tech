@@ -13,6 +13,9 @@ import {
   Mail,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
+import { AnimatedText } from '@/components/ui/animated-shiny-text';
+import { BubbleText } from '@/components/ui/bubble-text';
 
 export interface Testimonial {
   name: string;
@@ -89,6 +92,11 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
     { icon: Mail, url: currentTestimonial.gmailUrl, label: 'Email' },
   ].filter(({ url }) => Boolean(url));
 
+  const bioWords = currentTestimonial.description
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((text) => ({ text }));
+
   return (
     <div className={cn('w-full max-w-5xl mx-auto px-4', className)}>
       <div className="hidden md:flex relative items-center">
@@ -122,11 +130,20 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{currentTestimonial.name}</h2>
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-500">{currentTestimonial.title}</p>
+                <AnimatedText
+                  text={currentTestimonial.name}
+                  className="py-0"
+                  textClassName="text-3xl md:text-4xl font-bold"
+                  hoverEffect
+                />
+                <BubbleText text={currentTestimonial.title} className="mt-1" />
               </div>
 
-              <p className="text-black dark:text-white text-base leading-relaxed mb-8">{currentTestimonial.description}</p>
+              <TypewriterEffectSmooth
+                words={bioWords}
+                className="mb-8"
+                cursorClassName="bg-cyan-500"
+              />
 
               <div className="flex space-x-4 flex-wrap gap-y-3">
                 {socialIcons.map(({ icon: IconComponent, url, label }) => (
@@ -177,9 +194,18 @@ export function TestimonialCarousel({ className, testimonials }: TestimonialCaro
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{currentTestimonial.name}</h2>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-4">{currentTestimonial.title}</p>
-              <p className="text-black dark:text-white text-sm leading-relaxed mb-6">{currentTestimonial.description}</p>
+              <AnimatedText
+                text={currentTestimonial.name}
+                className="justify-center py-0"
+                textClassName="text-2xl sm:text-3xl font-bold"
+                hoverEffect
+              />
+              <BubbleText text={currentTestimonial.title} className="text-center mt-1 mb-4" />
+              <TypewriterEffectSmooth
+                words={bioWords}
+                className="justify-center mb-6"
+                cursorClassName="bg-cyan-500"
+              />
 
               <div className="flex justify-center space-x-4 flex-wrap gap-y-3">
                 {socialIcons.map(({ icon: IconComponent, url, label }) => (
