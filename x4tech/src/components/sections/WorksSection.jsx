@@ -98,7 +98,7 @@ export default function WorksSection() {
   const filtered = active === 'All' ? worksToShow : worksToShow.filter(w => w.cat === active);
 
   return (
-    <section id="works" ref={sectionRef} style={{ background: 'var(--x4-black)', padding: '8rem 3rem', position: 'relative', overflow: 'hidden' }}>
+    <section id="works" ref={sectionRef} style={{ background: 'var(--x4-black)', padding: 'clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 3rem)', position: 'relative', overflow: 'hidden' }}>
       {/* Accent line */}
       <div style={{ position: 'absolute', bottom: 0, right: '15%', width: '40%', height: '1px', background: 'linear-gradient(90deg, transparent, var(--x4-purple), transparent)' }} />
 
@@ -137,12 +137,12 @@ export default function WorksSection() {
         </div>
 
         {/* Works grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--x4-border)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1px', background: 'var(--x4-border)' }}>
           {filtered.map((work, i) => (
             <div
               key={work.id}
               className={`work-card reveal reveal-delay-${(i % 3) + 1}`}
-              style={{ gridColumn: work.size === 'large' && i === 0 ? 'span 2' : 'span 1' }}
+              style={{ gridColumn: 'span 1' }}
             >
               <div style={{ overflow: 'hidden', aspectRatio: work.size === 'large' && i === 0 ? '16/9' : '4/3' }}>
                 <img className="work-img" src={work.img} alt={work.title} />

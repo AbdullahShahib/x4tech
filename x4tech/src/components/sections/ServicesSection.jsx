@@ -88,7 +88,7 @@ export default function ServicesSection() {
   const servicesToShow = items.length ? items : services;
 
   return (
-    <section id="services" ref={sectionRef} style={{ background: 'var(--x4-dark)', position: 'relative', padding: '8rem 3rem', overflow: 'hidden' }}>
+    <section id="services" ref={sectionRef} style={{ background: 'var(--x4-dark)', position: 'relative', padding: 'clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 3rem)', overflow: 'hidden' }}>
       {/* Background grid */}
       <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.5 }} />
       
@@ -97,7 +97,7 @@ export default function ServicesSection() {
 
       <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative' }}>
         {/* Header */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'end', marginBottom: '5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'clamp(1.5rem, 4vw, 4rem)', alignItems: 'end', marginBottom: 'clamp(2rem, 6vw, 5rem)' }}>
           <div className="reveal">
             <p className="section-label">What We Do</p>
             <h2 className="section-title">
@@ -109,7 +109,7 @@ export default function ServicesSection() {
             <p style={{ color: 'var(--x4-muted)', lineHeight: 1.8, fontSize: '1rem', maxWidth: '440px' }}>
               From concept to launch — we handle every digital touchpoint so you can focus on running your business.
             </p>
-            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem' }}>
+            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
               <div>
                 <div className="stat-num" style={{ fontSize: '2.5rem' }}>50<span className="accent">+</span></div>
                 <div className="stat-label">Projects Done</div>
@@ -123,7 +123,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Services Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--x4-border)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1px', background: 'var(--x4-border)' }}>
           {servicesToShow.map((svc, i) => {
             const Icon = svc.icon;
             return (

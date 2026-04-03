@@ -62,7 +62,7 @@ export default function AboutPage() {
       <Cursor />
 
       <main style={{ background: 'var(--x4-black)', minHeight: '100vh' }}>
-        <section style={{ padding: '7rem 3rem 4rem', borderBottom: '1px solid var(--x4-border)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ padding: 'clamp(4.5rem, 10vw, 7rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 8vw, 4rem)', borderBottom: '1px solid var(--x4-border)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 20% 20%, rgba(0,212,255,0.12) 0%, transparent 45%)' }} />
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
             <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--x4-muted)', textDecoration: 'none', marginBottom: '1.5rem', fontFamily: 'Space Mono, monospace', fontSize: '0.68rem', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
@@ -79,7 +79,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section style={{ padding: '4rem 3rem 8rem' }}>
+        <section style={{ padding: 'clamp(2rem, 6vw, 4rem) clamp(0.75rem, 4vw, 3rem) clamp(3rem, 10vw, 8rem)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             {teamLoaded ? (
               <TestimonialCarousel testimonials={team.map(mapMemberToTestimonial)} />

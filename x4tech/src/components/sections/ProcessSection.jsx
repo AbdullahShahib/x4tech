@@ -38,12 +38,12 @@ export default function ProcessSection() {
   const sectionRef = useReveal();
 
   return (
-    <section id="process" ref={sectionRef} style={{ background: 'var(--x4-dark)', padding: '8rem 3rem', position: 'relative', overflow: 'hidden' }}>
+    <section id="process" ref={sectionRef} style={{ background: 'var(--x4-dark)', padding: 'clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 3rem)', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, left: '30%', width: '40%', height: '1px', background: 'linear-gradient(90deg, transparent, var(--x4-cyan), transparent)' }} />
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '6rem' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'clamp(2rem, 6vw, 6rem)' }}>
         {/* Left sticky header */}
-        <div className="reveal" style={{ position: 'sticky', top: '6rem', alignSelf: 'start' }}>
+        <div className="reveal" style={{ position: 'static', alignSelf: 'start' }}>
           <p className="section-label">How We Work</p>
           <h2 className="section-title">
             OUR<br />

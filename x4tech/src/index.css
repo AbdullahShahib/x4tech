@@ -722,7 +722,7 @@ body {
 .footer {
   background: var(--x4-dark);
   border-top: 1px solid var(--x4-border);
-  padding: 3rem;
+  padding: clamp(1.25rem, 5vw, 3rem);
 }
 
 /* ========================
@@ -814,6 +814,68 @@ body {
   .hero-logo {
     left: 1.5rem;
     top: 1.5rem;
+  }
+
+  .hero-main-title {
+    font-size: clamp(3.2rem, 16vw, 6rem);
+    line-height: 0.95;
+  }
+
+  .hero-desc {
+    font-size: 0.92rem;
+    max-width: 92vw;
+    padding: 0 0.25rem;
+  }
+
+  .hero-cta-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    max-width: 320px;
+    padding: 0.9rem 1rem;
+  }
+
+  .service-card {
+    padding: 1.35rem;
+  }
+
+  .service-name {
+    font-size: 1.35rem;
+  }
+
+  .service-arrow {
+    position: static;
+    opacity: 1;
+    transform: none;
+    margin-top: 1rem;
+    display: inline-flex;
+  }
+
+  .work-overlay {
+    display: none;
+  }
+
+  .process-step {
+    gap: 0.9rem;
+    padding: 1.2rem 0;
+  }
+
+  .step-num {
+    font-size: 2.2rem;
+    min-width: 42px;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
   }
 }
 

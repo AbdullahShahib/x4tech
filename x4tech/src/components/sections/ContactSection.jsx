@@ -16,13 +16,13 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} style={{ background: 'var(--x4-dark)', padding: '8rem 3rem', position: 'relative', overflow: 'hidden' }}>
+    <section id="contact" ref={sectionRef} style={{ background: 'var(--x4-dark)', padding: 'clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 3rem)', position: 'relative', overflow: 'hidden' }}>
       <div className="contact-glow" />
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, var(--x4-blue), var(--x4-cyan), transparent)' }} />
 
       <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative' }}>
         {/* Big CTA Header */}
-        <div className="reveal" style={{ marginBottom: '5rem', textAlign: 'center' }}>
+        <div className="reveal" style={{ marginBottom: 'clamp(2rem, 6vw, 5rem)', textAlign: 'center' }}>
           <p className="section-label">Let's Build</p>
           <div className="big-cta-title">
             <div>START YOUR</div>
@@ -34,7 +34,7 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '4rem', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'clamp(1.5rem, 5vw, 4rem)', alignItems: 'start' }}>
           {/* Left info */}
           <div className="reveal">
             <div style={{ marginBottom: '3rem' }}>
@@ -85,13 +85,13 @@ export default function ContactSection() {
           {/* Form */}
           <div className="reveal reveal-delay-2">
             {sent ? (
-              <div style={{ padding: '4rem', textAlign: 'center', border: '1px solid rgba(0,212,255,0.3)', background: 'rgba(0,212,255,0.03)' }}>
+              <div style={{ padding: 'clamp(1.5rem, 6vw, 4rem)', textAlign: 'center', border: '1px solid rgba(0,212,255,0.3)', background: 'rgba(0,212,255,0.03)' }}>
                 <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '3rem', color: 'var(--x4-cyan)', marginBottom: '1rem' }}>MESSAGE SENT!</div>
                 <p style={{ color: 'var(--x4-muted)' }}>We'll get back to you within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                   <div>
                     <label style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.3em', color: 'var(--x4-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>Name *</label>
                     <input className="contact-form-input" placeholder="Your full name" required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} />
@@ -102,7 +102,7 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                   <div>
                     <label style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.3em', color: 'var(--x4-muted)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>Service</label>
                     <select className="contact-form-input" style={{ cursor: 'pointer' }} value={form.service} onChange={e => setForm(f => ({...f, service: e.target.value}))}>

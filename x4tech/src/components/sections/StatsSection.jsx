@@ -40,13 +40,13 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section ref={ref} style={{ background: 'var(--x4-card)', borderTop: '1px solid var(--x4-border)', borderBottom: '1px solid var(--x4-border)', padding: '5rem 3rem', position: 'relative', overflow: 'hidden' }}>
+    <section ref={ref} style={{ background: 'var(--x4-card)', borderTop: '1px solid var(--x4-border)', borderBottom: '1px solid var(--x4-border)', padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 3rem)', position: 'relative', overflow: 'hidden' }}>
       {/* BG accent */}
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(0,102,255,0.06) 0%, transparent 70%)' }} />
       
-      <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', position: 'relative' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '1rem', position: 'relative' }}>
         {stats.map((s, i) => (
-          <div key={i} style={{ textAlign: 'center', borderRight: i < 3 ? '1px solid var(--x4-border)' : 'none', padding: '1rem' }}>
+          <div key={i} style={{ textAlign: 'center', border: '1px solid var(--x4-border)', padding: '1rem' }}>
             <div className="stat-num">
               <span className="accent"><CountUp target={s.num} suffix={s.suffix} start={started} /></span>
             </div>
