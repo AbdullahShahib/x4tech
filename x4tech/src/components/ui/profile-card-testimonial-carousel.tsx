@@ -71,14 +71,21 @@ const defaultTestimonials: Testimonial[] = [
 export interface TestimonialCarouselProps {
   className?: string;
   testimonials?: Testimonial[];
+  initialIndex?: number;
 }
 
-export function TestimonialCarousel({ className, testimonials }: TestimonialCarouselProps) {
+export function TestimonialCarousel({ className, testimonials, initialIndex = 0 }: TestimonialCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typedBio, setTypedBio] = useState('');
 
   const items = useMemo(() => (testimonials && testimonials.length ? testimonials : defaultTestimonials), [testimonials]);
   const currentTestimonial = items[currentIndex] ?? items[0];
+
+  useEffect(() => {
+    if (!items.length) return;
+    const safeIndex = Math.min(Math.max(initialIndex, 0), items.length - 1);
+    setCurrentIndex(safeIndex);
+  }, [initialIndex, items.length]);
 
   const handleNext = () => setCurrentIndex((index) => (index + 1) % items.length);
   const handlePrevious = () => setCurrentIndex((index) => (index - 1 + items.length) % items.length);

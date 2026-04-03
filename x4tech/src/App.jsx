@@ -11,6 +11,7 @@ import WorksSection from './components/sections/WorksSection';
 import StatsSection from './components/sections/StatsSection';
 import ProcessSection from './components/sections/ProcessSection';
 import TestimonialsSection from './components/sections/TestimonialsSection';
+import TeamShowcaseSection from './components/sections/TeamShowcaseSection';
 import ContactSection from './components/sections/ContactSection';
 import Footer from './components/sections/Footer';
 import AboutPage from './pages/AboutPage';
@@ -43,6 +44,7 @@ function PublicSite() {
         <WorksSection />
         <ProcessSection />
         <TestimonialsSection />
+        <TeamShowcaseSection />
         <ContactSection />
         <Footer />
       </main>

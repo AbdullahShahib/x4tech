@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import Cursor from '../components/ui/Cursor';
 import Footer from '../components/sections/Footer';
 import { getAll, COLS } from '../lib/firestore';
@@ -30,6 +31,7 @@ const FALLBACK_MEMBERS = [
 ];
 
 export default function AboutPage() {
+  const location = useLocation();
   const [members, setMembers] = useState([]);
   const [teamLoaded, setTeamLoaded] = useState(false);
 
@@ -55,6 +57,8 @@ export default function AboutPage() {
   }, []);
 
   const team = members.length ? members : FALLBACK_MEMBERS;
+  const selectedMemberId = new URLSearchParams(location.search).get('member');
+  const initialIndex = Math.max(0, team.findIndex((m) => String(m.id) === String(selectedMemberId)));
 
   return (
     <>
@@ -82,7 +86,7 @@ export default function AboutPage() {
         <section style={{ padding: 'clamp(2rem, 6vw, 4rem) clamp(0.75rem, 4vw, 3rem) clamp(3rem, 10vw, 8rem)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             {teamLoaded ? (
-              <TestimonialCarousel testimonials={team.map(mapMemberToTestimonial)} />
+              <TestimonialCarousel testimonials={team.map(mapMemberToTestimonial)} initialIndex={initialIndex} />
             ) : (
               <div style={{ height: '520px', borderRadius: '24px', border: '1px solid var(--x4-border)', background: 'rgba(255,255,255,0.02)' }} />
             )}
