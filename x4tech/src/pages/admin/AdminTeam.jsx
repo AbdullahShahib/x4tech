@@ -61,14 +61,25 @@ export default function AdminTeam({ defaultTab = 'team' }) {
       if (editing) { await update(col, editing, data); toast('Updated!'); }
       else          { await create(col, data);          toast('Created!'); }
       setModal(false); load();
-    } catch (_) { toast('Error', 'error'); }
+    } catch (err) { 
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Save error:', err);
+      }
+      toast(`Error: ${err.message || 'Failed to save'}`, 'error'); 
+    }
     setSaving(false);
   };
 
   const handleDelete = async () => {
     const col = isTeam ? COLS.TEAM : COLS.JOBS;
     try { await remove(col, delTarget.id); toast('Deleted'); load(); }
-    catch (_) { toast('Error', 'error'); }
+    catch (err) { 
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Delete error:', err);
+      }
+      toast(`Error: ${err.message || 'Failed to delete'}`, 'error'); 
+    }
+    setDelTarget(null);
   };
 
   const f = (key) => (val) => setForm(p => ({ ...p, [key]: typeof val === 'object' && val?.target ? val.target.value : val }));

@@ -13,6 +13,7 @@ export function formatFirebaseError(err, fallback = 'Operation failed') {
     'permission-denied': 'Permission denied by Firestore security rules.',
     'not-found': 'Requested document was not found.',
     'failed-precondition': 'Firestore requires an index or has unmet preconditions.',
+    'storage/unknown': 'Storage request failed. Verify Storage bucket name and that Firebase Storage is enabled.',
     'unavailable': 'Firebase service is temporarily unavailable. Please retry.',
   };
 

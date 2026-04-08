@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Public site
 import Cursor from './components/ui/Cursor';
@@ -34,9 +35,9 @@ import AdminSettings from './pages/admin/AdminSettings';
 function PublicSite() {
   return (
     <>
-      <div className="scanline" />
-      <Cursor />
-      <main>
+      <main className="public-site">
+        <div className="scanline" />
+        <Cursor />
         <HeroSection />
         <Ticker />
         <ServicesSection />
@@ -54,38 +55,40 @@ function PublicSite() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter future={{ v7_relativeSplatPath: true }}>
-        <Routes>
-          {/* ── Public website ── */}
-          <Route path="/" element={<PublicSite />} />
-          <Route path="/about" element={<AboutPage />} />
+    <ErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+          <Routes>
+            {/* ── Public website ── */}
+            <Route path="/" element={<PublicSite />} />
+            <Route path="/about" element={<AboutPage />} />
 
-          {/* ── Admin login ── */}
-          <Route path="/admin" element={<AdminLogin />} />
+            {/* ── Admin login ── */}
+            <Route path="/admin" element={<AdminLogin />} />
 
-          {/* ── Admin dashboard (protected) ── */}
-          <Route path="/admin" element={
-            <ProtectedRoute>
-              <AdminLayout />
-            </ProtectedRoute>
-          }>
-            <Route path="dashboard"    element={<AdminDashboard />} />
-            <Route path="projects"     element={<AdminProjects />} />
-            <Route path="services"     element={<AdminServices />} />
-            <Route path="testimonials" element={<AdminTestimonials />} />
-            <Route path="clients"      element={<AdminClients />} />
-            <Route path="team"         element={<AdminTeam />} />
-            <Route path="blog"         element={<AdminBlog />} />
-            <Route path="jobs"         element={<AdminJobs />} />
-            <Route path="seo"          element={<AdminSEO />} />
-            <Route path="settings"     element={<AdminSettings />} />
-          </Route>
+            {/* ── Admin dashboard (protected) ── */}
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }>
+              <Route path="dashboard"    element={<AdminDashboard />} />
+              <Route path="projects"     element={<AdminProjects />} />
+              <Route path="services"     element={<AdminServices />} />
+              <Route path="testimonials" element={<AdminTestimonials />} />
+              <Route path="clients"      element={<AdminClients />} />
+              <Route path="team"         element={<AdminTeam />} />
+              <Route path="blog"         element={<AdminBlog />} />
+              <Route path="jobs"         element={<AdminJobs />} />
+              <Route path="seo"          element={<AdminSEO />} />
+              <Route path="settings"     element={<AdminSettings />} />
+            </Route>
 
-          {/* ── Fallback ── */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            {/* ── Fallback ── */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
