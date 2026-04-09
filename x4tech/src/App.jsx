@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -18,19 +18,27 @@ import Footer from './components/sections/Footer';
 import AboutPage from './pages/AboutPage';
 
 // Admin
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminLayout from './pages/admin/AdminLayout';
-import ProtectedRoute from './pages/admin/ProtectedRoute';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminProjects from './pages/admin/AdminProjects';
-import AdminServices from './pages/admin/AdminServices';
-import AdminTestimonials from './pages/admin/AdminTestimonials';
-import AdminClients from './pages/admin/AdminClients';
-import AdminTeam from './pages/admin/AdminTeam';
-import AdminBlog from './pages/admin/AdminBlog';
-import AdminJobs from './pages/admin/AdminJobs';
-import AdminSEO from './pages/admin/AdminSEO';
-import AdminSettings from './pages/admin/AdminSettings';
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const ProtectedRoute = lazy(() => import('./pages/admin/ProtectedRoute'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminProjects = lazy(() => import('./pages/admin/AdminProjects'));
+const AdminServices = lazy(() => import('./pages/admin/AdminServices'));
+const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
+const AdminClients = lazy(() => import('./pages/admin/AdminClients'));
+const AdminTeam = lazy(() => import('./pages/admin/AdminTeam'));
+const AdminBlog = lazy(() => import('./pages/admin/AdminBlog'));
+const AdminJobs = lazy(() => import('./pages/admin/AdminJobs'));
+const AdminSEO = lazy(() => import('./pages/admin/AdminSEO'));
+const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
+
+function RouteFallback() {
+  return (
+    <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', background: 'var(--x4-black)', color: 'var(--x4-muted)', fontFamily: 'Space Mono, monospace', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+      Loading...
+    </div>
+  );
+}
 
 function PublicSite() {
   return (
@@ -58,35 +66,37 @@ export default function App() {
     <ErrorBoundary>
       <AuthProvider>
         <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
-          <Routes>
-            {/* ── Public website ── */}
-            <Route path="/" element={<PublicSite />} />
-            <Route path="/about" element={<AboutPage />} />
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              {/* ── Public website ── */}
+              <Route path="/" element={<PublicSite />} />
+              <Route path="/about" element={<AboutPage />} />
 
-            {/* ── Admin login ── */}
-            <Route path="/admin" element={<AdminLogin />} />
+              {/* ── Admin login ── */}
+              <Route path="/admin" element={<AdminLogin />} />
 
-            {/* ── Admin dashboard (protected) ── */}
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }>
-              <Route path="dashboard"    element={<AdminDashboard />} />
-              <Route path="projects"     element={<AdminProjects />} />
-              <Route path="services"     element={<AdminServices />} />
-              <Route path="testimonials" element={<AdminTestimonials />} />
-              <Route path="clients"      element={<AdminClients />} />
-              <Route path="team"         element={<AdminTeam />} />
-              <Route path="blog"         element={<AdminBlog />} />
-              <Route path="jobs"         element={<AdminJobs />} />
-              <Route path="seo"          element={<AdminSEO />} />
-              <Route path="settings"     element={<AdminSettings />} />
-            </Route>
+              {/* ── Admin dashboard (protected) ── */}
+              <Route path="/admin" element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }>
+                <Route path="dashboard"    element={<AdminDashboard />} />
+                <Route path="projects"     element={<AdminProjects />} />
+                <Route path="services"     element={<AdminServices />} />
+                <Route path="testimonials" element={<AdminTestimonials />} />
+                <Route path="clients"      element={<AdminClients />} />
+                <Route path="team"         element={<AdminTeam />} />
+                <Route path="blog"         element={<AdminBlog />} />
+                <Route path="jobs"         element={<AdminJobs />} />
+                <Route path="seo"          element={<AdminSEO />} />
+                <Route path="settings"     element={<AdminSettings />} />
+              </Route>
 
-            {/* ── Fallback ── */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+              {/* ── Fallback ── */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </AuthProvider>
     </ErrorBoundary>

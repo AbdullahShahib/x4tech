@@ -62,7 +62,7 @@ export default function AdminTeam({ defaultTab = 'team' }) {
       else          { await create(col, data);          toast('Created!'); }
       setModal(false); load();
     } catch (err) { 
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.error('Save error:', err);
       }
       toast(`Error: ${err.message || 'Failed to save'}`, 'error'); 
@@ -74,7 +74,7 @@ export default function AdminTeam({ defaultTab = 'team' }) {
     const col = isTeam ? COLS.TEAM : COLS.JOBS;
     try { await remove(col, delTarget.id); toast('Deleted'); load(); }
     catch (err) { 
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.error('Delete error:', err);
       }
       toast(`Error: ${err.message || 'Failed to delete'}`, 'error'); 
