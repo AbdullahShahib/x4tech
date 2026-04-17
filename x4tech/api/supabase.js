@@ -53,12 +53,27 @@ async function proxy(req, res) {
     body = Buffer.concat(chunks);
   }
 
-  const response = await fetch(targetUrl, {
-    method,
-    headers,
-    body,
-    redirect: 'manual',
-  });
+  let response;
+  try {
+    response = await fetch(targetUrl, {
+      method,
+      headers,
+      body,
+      redirect: 'manual',
+    });
+  } catch (error) {
+    res.statusCode = 502;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Vary', 'Origin');
+    res.end(JSON.stringify({
+      error: 'Proxy request to Supabase failed',
+      message: error instanceof Error ? error.message : String(error),
+      targetUrl,
+    }));
+    return;
+  }
 
   res.statusCode = response.status;
   response.headers.forEach((value, key) => {
@@ -69,6 +84,13 @@ async function proxy(req, res) {
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Vary', 'Origin');
+
+  const contentType = response.headers.get('content-type') || '';
+  if (response.status >= 400 && contentType.includes('application/json')) {
+    const text = await response.text();
+    res.end(text);
+    return;
+  }
 
   const arrayBuffer = await response.arrayBuffer();
   res.end(Buffer.from(arrayBuffer));
