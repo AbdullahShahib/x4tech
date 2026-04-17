@@ -5,7 +5,9 @@ export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const SUPABASE_PROXY_BASE = import.meta.env.VITE_SUPABASE_PROXY_BASE || '/api/supabase';
 
 const browserBaseUrl = typeof window !== 'undefined'
-  ? `${window.location.origin}${SUPABASE_PROXY_BASE}`
+  ? (import.meta.env.DEV
+      ? `${window.location.origin}${SUPABASE_PROXY_BASE}`
+      : SUPABASE_URL)
   : SUPABASE_URL;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
