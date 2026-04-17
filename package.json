@@ -1,0 +1,12 @@
+{
+  "name": "x4tech-root",
+  "private": true,
+  "workspaces": [
+    "x4tech"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace x4tech && node scripts/copy-dist.mjs",
+    "dev": "npm run dev --workspace x4tech",
+    "preview": "npm run preview --workspace x4tech"
+  }
+}
