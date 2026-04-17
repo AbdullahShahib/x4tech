@@ -2,10 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-export const SUPABASE_PROXY_BASE = import.meta.env.VITE_SUPABASE_PROXY_BASE || '/api/supabase';
+export const SUPABASE_PROXY_BASE = import.meta.env.VITE_SUPABASE_PROXY_BASE;
 
 const browserBaseUrl = typeof window !== 'undefined'
-  ? (import.meta.env.DEV
+  ? (SUPABASE_PROXY_BASE
       ? `${window.location.origin}${SUPABASE_PROXY_BASE}`
       : SUPABASE_URL)
   : SUPABASE_URL;
