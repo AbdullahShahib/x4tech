@@ -1,4 +1,4 @@
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://elkcgeumvoyyzagziplw.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || 'https://elkcgeumvoyyzagziplw.supabase.co';
 
 const hopByHopHeaders = new Set([
   'connection',
