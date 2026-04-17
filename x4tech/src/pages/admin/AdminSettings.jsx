@@ -133,8 +133,8 @@ export default function AdminSettings() {
             <Key size={14} color="var(--x4-muted)" />
             <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', letterSpacing: '0.2em', color: 'var(--x4-muted)', textTransform: 'uppercase' }}>Supabase RLS Policy</p>
           </div>
-          <p style={{ fontSize: '0.8rem', color: 'var(--x4-muted)', lineHeight: 1.7, marginBottom: '1rem' }}>
-            In SQL Editor, use policies to allow public read and authenticated writes:
+            <p style={{ fontSize: '0.8rem', color: 'var(--x4-muted)', lineHeight: 1.7, marginBottom: '1rem' }}>
+            In SQL Editor, use policies to allow public read and authenticated writes. For Storage, use a dedicated bucket policy suitable for your deployment.
           </p>
           <pre style={{ background: 'var(--x4-dark)', padding: '1rem', fontSize: '0.72rem', color: '#e8e8f0', overflowX: 'auto', fontFamily: 'Space Mono, monospace', lineHeight: 1.6, border: '1px solid var(--x4-border)' }}>
 {`alter table projects enable row level security;

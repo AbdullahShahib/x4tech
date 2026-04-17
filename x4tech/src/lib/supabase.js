@@ -2,13 +2,18 @@ import { createClient } from '@supabase/supabase-js';
 
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+export const SUPABASE_PROXY_BASE = import.meta.env.VITE_SUPABASE_PROXY_BASE || '/api/supabase';
+
+const browserBaseUrl = typeof window !== 'undefined'
+  ? `${window.location.origin}${SUPABASE_PROXY_BASE}`
+  : SUPABASE_URL;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   console.error('[Supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY');
 }
 
 export const supabase = createClient(
-  SUPABASE_URL || 'https://placeholder.supabase.co',
+  browserBaseUrl || 'https://placeholder.supabase.co',
   SUPABASE_ANON_KEY || 'placeholder-anon-key'
 );
 

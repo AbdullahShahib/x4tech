@@ -112,21 +112,41 @@ begin
   end loop;
 end $$;
 
--- Storage bucket + policies
 insert into storage.buckets (id, name, public)
 values ('media', 'media', true)
 on conflict (id) do nothing;
 
-drop policy if exists "media public read" on storage.objects;
-drop policy if exists "media auth write" on storage.objects;
+do $$
+declare
+  p record;
+begin
+  for p in
+    select policyname
+    from pg_policies
+    where schemaname = 'storage'
+      and tablename = 'objects'
+  loop
+    execute format('drop policy if exists %I on storage.objects;', p.policyname);
+  end loop;
+end $$;
 
 create policy "media public read"
 on storage.objects
 for select
 using (bucket_id = 'media');
 
-create policy "media auth write"
+create policy "media public insert"
 on storage.objects
-for all
-using (bucket_id = 'media' and auth.role() = 'authenticated')
-with check (bucket_id = 'media' and auth.role() = 'authenticated');
+for insert
+with check (bucket_id = 'media');
+
+create policy "media public update"
+on storage.objects
+for update
+using (bucket_id = 'media')
+with check (bucket_id = 'media');
+
+create policy "media public delete"
+on storage.objects
+for delete
+using (bucket_id = 'media');
