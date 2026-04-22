@@ -309,7 +309,7 @@ export default function HeroSection() {
         </div>
 
         {/* Corner decorations */}
-        <div style={{ position: 'absolute', top: '50%', right: '2.5rem', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center' }}>
+        <div className="hero-side-markers" style={{ position: 'absolute', top: '50%', right: '2.5rem', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center' }}>
           {[0,1,2,3,4].map(i => (
             <div key={i} style={{ width: '1px', height: i === 2 ? '40px' : '20px', background: i === 2 ? 'var(--x4-cyan)' : 'var(--x4-border)' }} />
           ))}

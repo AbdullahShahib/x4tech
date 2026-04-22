@@ -201,14 +201,14 @@ export function Confirm({ open, onClose, onConfirm, message = 'Are you sure?' })
 // ── Data table ───────────────────────────────────────────────
 export function DataTable({ cols, rows, onEdit, onDelete, loading }) {
   return (
-    <div style={{ border: '1px solid var(--x4-border)', overflow: 'hidden' }}>
+    <div style={{ border: '1px solid var(--x4-border)', overflowX: 'auto', overflowY: 'hidden', WebkitOverflowScrolling: 'touch' }}>
       {loading ? (
         <div style={{ padding: '3rem', textAlign: 'center' }}>
           <Loader2 size={24} style={{ animation: 'spin 0.7s linear infinite', color: 'var(--x4-muted)' }} />
           <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
         </div>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <table style={{ width: '100%', minWidth: '720px', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: 'var(--x4-card)', borderBottom: '1px solid var(--x4-border)' }}>
               {cols.map(c => (

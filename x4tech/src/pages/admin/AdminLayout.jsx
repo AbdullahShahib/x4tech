@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -24,18 +24,50 @@ export default function AdminLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth <= 900 : false));
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      const mobile = window.innerWidth <= 900;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setMobileOpen(false);
+      }
+      if (mobile) {
+        setCollapsed(true);
+      }
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   const handleLogout = async () => { await logout(); navigate('/admin'); };
+  const sidebarWidth = collapsed ? 64 : 240;
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#07070E', fontFamily: 'DM Sans, sans-serif', color: 'var(--x4-text)' }}>
 
+      {isMobile && mobileOpen && (
+        <div
+          onClick={() => setMobileOpen(false)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 99 }}
+        />
+      )}
+
       {/* ── Sidebar ── */}
       <aside style={{
-        width: collapsed ? '64px' : '240px', flexShrink: 0,
+        width: `${sidebarWidth}px`, flexShrink: 0,
         background: 'var(--x4-dark)', borderRight: '1px solid var(--x4-border)',
         display: 'flex', flexDirection: 'column', transition: 'width 0.3s cubic-bezier(0.16,1,0.3,1)',
-        position: 'sticky', top: 0, height: '100vh', zIndex: 100, overflow: 'hidden'
+        position: isMobile ? 'fixed' : 'sticky',
+        left: isMobile ? (mobileOpen ? '0' : `-${sidebarWidth}px`) : 0,
+        top: 0,
+        height: '100vh',
+        zIndex: 100,
+        overflow: 'hidden',
+        transitionProperty: 'width, left'
       }}>
         {/* Logo */}
         <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--x4-border)', display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'space-between', gap: '0.5rem' }}>
@@ -55,6 +87,7 @@ export default function AdminLayout() {
         <nav style={{ flex: 1, padding: '1rem 0', overflowY: 'auto', overflowX: 'hidden' }}>
           {NAV.map(({ label, path, icon: Icon }) => (
             <NavLink key={path} to={path}
+              onClick={() => { if (isMobile) setMobileOpen(false); }}
               style={({ isActive }) => ({
                 display: 'flex', alignItems: 'center', gap: '0.75rem',
                 padding: collapsed ? '0.7rem' : '0.65rem 1.25rem',
@@ -95,26 +128,35 @@ export default function AdminLayout() {
       {/* ── Main content ── */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         {/* Top bar */}
-        <header style={{ padding: '1rem 2rem', borderBottom: '1px solid var(--x4-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--x4-dark)', position: 'sticky', top: 0, zIndex: 50 }}>
+        <header style={{ padding: isMobile ? '0.9rem 1rem' : '1rem 2rem', borderBottom: '1px solid var(--x4-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--x4-dark)', position: 'sticky', top: 0, zIndex: 50, gap: '0.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {isMobile && (
+              <button
+                onClick={() => setMobileOpen((v) => !v)}
+                style={{ background: 'none', border: '1px solid var(--x4-border)', color: 'var(--x4-muted)', padding: '0.3rem', cursor: 'pointer', display: 'flex' }}
+                aria-label="Toggle navigation"
+              >
+                <Menu size={16} />
+              </button>
+            )}
             <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--x4-muted)', textTransform: 'uppercase' }}>
               X4Tech Admin
             </span>
-            <span style={{ color: 'var(--x4-border)' }}>/</span>
-            <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'var(--x4-cyan)', textTransform: 'uppercase' }}>
+            {!isMobile && <span style={{ color: 'var(--x4-border)' }}>/</span>}
+            <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'var(--x4-cyan)', textTransform: 'uppercase', display: isMobile ? 'none' : 'inline' }}>
               Control Panel
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <a href="/" target="_blank" rel="noreferrer"
-              style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--x4-muted)', textDecoration: 'none', padding: '0.4rem 0.8rem', border: '1px solid var(--x4-border)', textTransform: 'uppercase', transition: 'all 0.2s' }}>
+              style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--x4-muted)', textDecoration: 'none', padding: isMobile ? '0.35rem 0.6rem' : '0.4rem 0.8rem', border: '1px solid var(--x4-border)', textTransform: 'uppercase', transition: 'all 0.2s' }}>
               View Site ↗
             </a>
           </div>
         </header>
 
         {/* Page content */}
-        <main style={{ flex: 1, padding: '2rem', overflowY: 'auto' }}>
+        <main style={{ flex: 1, padding: isMobile ? '1rem' : '2rem', overflowY: 'auto' }}>
           <Outlet />
         </main>
       </div>
