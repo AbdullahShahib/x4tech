@@ -4,7 +4,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Public site
-import Cursor from './components/ui/Cursor';
 import HeroSection from './components/sections/HeroSection';
 import Ticker from './components/sections/Ticker';
 import ServicesSection from './components/sections/ServicesSection';
@@ -44,8 +43,6 @@ function PublicSite() {
   return (
     <>
       <main className="public-site">
-        <div className="scanline" />
-        <Cursor />
         <HeroSection />
         <Ticker />
         <ServicesSection />

@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --x4-black: #040408;
-  --x4-dark: #08080F;
-  --x4-card: #0D0D1A;
-  --x4-border: #1A1A2E;
-  --x4-blue: #0066FF;
-  --x4-cyan: #00D4FF;
-  --x4-purple: #7B00FF;
-  --x4-accent: #FF003C;
-  --x4-text: #E8E8F0;
-  --x4-muted: #6B6B8A;
+  --x4-black: #f4f7fb;
+  --x4-dark: #eef3f9;
+  --x4-card: #ffffff;
+  --x4-border: #d5deea;
+  --x4-blue: #2563eb;
+  --x4-cyan: #0891b2;
+  --x4-purple: #7c3aed;
+  --x4-accent: #e11d48;
+  --x4-text: #1f2937;
+  --x4-text-strong: #0f172a;
+  --x4-muted: #64748b;
 }
 
 * {
@@ -30,7 +31,7 @@ body {
   color: var(--x4-text);
   font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
 /* Custom cursor */
@@ -81,6 +82,8 @@ body {
   width: 100%;
   height: 100%;
   z-index: 0;
+  opacity: 0.2;
+  filter: saturate(0.65) contrast(0.9);
 }
 
 .hero-container {
@@ -103,7 +106,7 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center bottom, rgba(0,102,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center bottom, rgba(37,99,235,0.06) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -114,7 +117,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   letter-spacing: 0.1em;
-  color: #fff;
+  color: var(--x4-text-strong);
   z-index: 10;
 }
 
@@ -186,7 +189,7 @@ body {
   font-size: clamp(6rem, 16vw, 16rem);
   line-height: 0.9;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--x4-text-strong);
   overflow: hidden;
 }
 
@@ -432,7 +435,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.8rem;
   letter-spacing: 0.05em;
-  color: #fff;
+  color: var(--x4-text-strong);
   margin-bottom: 0.75rem;
   line-height: 1;
 }
@@ -522,7 +525,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
   letter-spacing: 0.05em;
-  color: #fff;
+  color: var(--x4-text-strong);
 }
 
 .work-overlay {
@@ -599,7 +602,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   letter-spacing: 0.05em;
-  color: #fff;
+  color: var(--x4-text-strong);
   margin-bottom: 0.75rem;
 }
 
@@ -659,7 +662,7 @@ body {
   font-family: 'Space Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
-  color: #fff;
+  color: var(--x4-text-strong);
 }
 
 .author-role {
@@ -688,7 +691,7 @@ body {
   font-size: clamp(4rem, 11vw, 11rem);
   line-height: 0.9;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--x4-text-strong);
 }
 
 .big-cta-title .hollow {
@@ -801,6 +804,13 @@ body {
     rgba(0,0,0,0.03) 2px,
     rgba(0,0,0,0.03) 4px
   );
+  display: none;
+}
+
+/* Cleaner light-theme typography overrides */
+.section-title,
+.stat-num {
+  color: var(--x4-text-strong);
 }
 
 /* ========================

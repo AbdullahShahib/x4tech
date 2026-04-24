@@ -126,7 +126,7 @@ export default function WorksSection() {
                   textTransform: 'uppercase',
                   background: active === f ? 'var(--x4-blue)' : 'transparent',
                   border: `1px solid ${active === f ? 'var(--x4-blue)' : 'var(--x4-border)'}`,
-                  color: active === f ? '#fff' : 'var(--x4-muted)',
+                  color: active === f ? '#ffffff' : 'var(--x4-muted)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'
                 }}
@@ -151,7 +151,7 @@ export default function WorksSection() {
               <div className="work-overlay">
                 <div>
                   <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--x4-cyan)', textTransform: 'uppercase', marginBottom: '0.4rem' }}>{work.cat}</p>
-                  <p style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2rem', letterSpacing: '0.05em', color: '#fff' }}>{work.title}</p>
+                  <p style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)' }}>{work.title}</p>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
                     {work.tags.map((t, j) => (
                       <span key={j} style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.1em', padding: '0.2rem 0.6rem', border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.7)' }}>{t}</span>

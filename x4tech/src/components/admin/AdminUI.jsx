@@ -7,7 +7,7 @@ export function PageHeader({ title, subtitle, action }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
       <div>
-        <h1 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.2rem', letterSpacing: '0.05em', color: '#fff', lineHeight: 1 }}>{title}</h1>
+        <h1 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.2rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)', lineHeight: 1 }}>{title}</h1>
         {subtitle && <p style={{ color: 'var(--x4-muted)', fontSize: '0.88rem', marginTop: '0.4rem' }}>{subtitle}</p>}
       </div>
       {action}
@@ -172,7 +172,7 @@ export function Modal({ open, onClose, title, children, width = '640px' }) {
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={onClose}>
       <div style={{ background: 'var(--x4-dark)', border: '1px solid var(--x4-border)', width: '100%', maxWidth: width, maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
         <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--x4-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.6rem', letterSpacing: '0.05em', color: '#fff' }}>{title}</h2>
+          <h2 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.6rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)' }}>{title}</h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--x4-muted)', padding: 0 }}><X size={18} /></button>
         </div>
         <div style={{ padding: '1.5rem' }}>{children}</div>
@@ -252,7 +252,7 @@ export function StatCard({ icon: Icon, label, value, color = 'var(--x4-blue)' })
         <Icon size={20} color={color} />
       </div>
       <div>
-        <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2rem', lineHeight: 1, color: '#fff' }}>{value}</div>
+        <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2rem', lineHeight: 1, color: 'var(--x4-text-strong)' }}>{value}</div>
         <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.2em', color: 'var(--x4-muted)', textTransform: 'uppercase', marginTop: '0.2rem' }}>{label}</div>
       </div>
     </div>

@@ -112,7 +112,7 @@ export default function AdminTeam({ defaultTab = 'team' }) {
       {/* Hiring banner toggle */}
       <div style={{ marginBottom: '1.5rem', padding: '1rem 1.25rem', background: 'var(--x4-card)', border: '1px solid var(--x4-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.2em', color: '#fff', textTransform: 'uppercase' }}>We're Hiring Banner</p>
+          <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.2em', color: 'var(--x4-text-strong)', textTransform: 'uppercase' }}>We're Hiring Banner</p>
           <p style={{ fontSize: '0.8rem', color: 'var(--x4-muted)', marginTop: '0.2rem' }}>Show a "We're Hiring!" banner across the website</p>
         </div>
         <Toggle value={hiringBanner} onChange={setHiringBanner} label={hiringBanner ? 'Banner ON' : 'Banner OFF'} />

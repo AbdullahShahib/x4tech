@@ -58,7 +58,7 @@ export default function AdminSettings() {
             {user?.email?.[0]?.toUpperCase()}
           </div>
           <div>
-            <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.4rem', letterSpacing: '0.05em', color: '#fff' }}>Your Account</div>
+            <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.4rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)' }}>Your Account</div>
             <div style={{ fontSize: '0.85rem', color: 'var(--x4-muted)' }}>{user?.email}</div>
           </div>
         </div>

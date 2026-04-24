@@ -41,7 +41,7 @@ export default function AdminLogin() {
       <div style={{ width: '100%', maxWidth: '420px', padding: '2rem', position: 'relative', zIndex: 1 }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.5rem', letterSpacing: '0.1em', color: '#fff', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.5rem', letterSpacing: '0.1em', color: 'var(--x4-text-strong)', marginBottom: '0.5rem' }}>
             X4<span style={{ color: 'var(--x4-cyan)' }}>TECH</span>
           </div>
           <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--x4-muted)', textTransform: 'uppercase' }}>
@@ -56,7 +56,7 @@ export default function AdminLogin() {
               <Lock size={16} color="var(--x4-blue)" />
             </div>
             <div>
-              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.4rem', letterSpacing: '0.05em', color: '#fff' }}>Secure Access</div>
+              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.4rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)' }}>Secure Access</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--x4-muted)' }}>Sign in to manage your portfolio</div>
             </div>
           </div>

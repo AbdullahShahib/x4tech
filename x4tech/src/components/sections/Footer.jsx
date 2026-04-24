@@ -11,7 +11,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 'clamp(1.25rem, 4vw, 4rem)', paddingBottom: '3rem', borderBottom: '1px solid var(--x4-border)' }}>
           {/* Brand */}
           <div>
-            <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.5rem', letterSpacing: '0.05em', color: '#fff', marginBottom: '1rem' }}>
+            <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: '2.5rem', letterSpacing: '0.05em', color: 'var(--x4-text-strong)', marginBottom: '1rem' }}>
               X4<span style={{ color: 'var(--x4-cyan)' }}>TECH</span>
             </div>
             <p style={{ color: 'var(--x4-muted)', fontSize: '0.88rem', lineHeight: 1.7, maxWidth: '300px', marginBottom: '1.5rem' }}>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import Cursor from '../components/ui/Cursor';
 import Footer from '../components/sections/Footer';
 import { getAll, COLS } from '../lib/firestore';
 import { sanitizeImageUrl } from '../lib/utils';
@@ -67,9 +66,6 @@ export default function AboutPage() {
 
   return (
     <>
-      <div className="scanline" />
-      <Cursor />
-
       <main style={{ background: 'var(--x4-black)', minHeight: '100vh' }}>
         <section style={{ padding: 'clamp(4.5rem, 10vw, 7rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 8vw, 4rem)', borderBottom: '1px solid var(--x4-border)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 20% 20%, rgba(0,212,255,0.12) 0%, transparent 45%)' }} />
